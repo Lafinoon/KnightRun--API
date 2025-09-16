@@ -1,2 +1,6 @@
 # KnightRun--API
-The API of fitness and exercise software KnightRun!
+The API of fitness and exercise software Knight Run!
+
+Knight Run! is an Android mobile game application for running scenarios. Through setting up checkpoint challenges and combat rewards, the game aims to enrich users' exercise experience. The game is set in afantasy Western-style world where users play as a novice knight, embarking on various adventures and treasure hunts in the virtual world through real-world running activities. The game application is bound to users' real-world activities, allowing players to use the app during any outdoor running or walking exercise. 
+
+When players launch the game, they will play as a little knight adventuring in a virtual world, and players can start running exercises at any time. The game primarily guides players through voice prompts during their run, while players can also check the app screen for information at any time. During gameplay, players will encounter various fantasy monsters or challenges, which they must overcome through real-world running time competitions or running distance. After defeating monsters, players receive various rewards to help with their next "adventure," such as obtaining potions to increase next rest time, or swords to increase damage dealt at the same distance in future runs.
