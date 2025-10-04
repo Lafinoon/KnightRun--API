@@ -34,12 +34,24 @@ app.post('/api/login', async (req, res) => {
             });
         }
 
-        // 查询用户信息
+        // 查询用户信息和物品信息（使用LEFT JOIN）
         const query = `
-            SELECT user_id, username, "level", experience_points, class_points, 
-                   gold_coins, silver_coins, credits, consecutive_days, exercise_intensity
-            FROM public.user_info 
-            WHERE username = $1 AND password_hash = $2
+            SELECT 
+                ui.user_id, 
+                ui.username, 
+                ui."level", 
+                ui.experience_points, 
+                ui.class_points, 
+                ui.gold_coins, 
+                ui.silver_coins, 
+                ui.credits, 
+                ui.consecutive_days, 
+                ui.exercise_intensity,
+                uit.equipped_items,
+                uit.owned_items
+            FROM public.user_info ui
+            LEFT JOIN public.user_items uit ON ui.user_id = uit.user_id
+            WHERE ui.username = $1 AND ui.password_hash = $2
         `;
         
         const result = await client.query(query, [username, password]);
@@ -53,7 +65,8 @@ app.post('/api/login', async (req, res) => {
 
         const user = result.rows[0];
         
-        res.json({
+        // 构建响应数据
+        const responseData = {
             success: true,
             message: 'Login successful',
             user: {
@@ -67,8 +80,14 @@ app.post('/api/login', async (req, res) => {
                 credits: user.credits,
                 consecutive_days: user.consecutive_days,
                 exercise_intensity: user.exercise_intensity
+            },
+            items: {
+                equipped_items: user.equipped_items || {},
+                owned_items: user.owned_items || []
             }
-        });
+        };
+
+        res.json(responseData);
 
     } catch (error) {
         console.error('Login error:', error);
