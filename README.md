@@ -6,6 +6,9 @@ Knight Run! is an Android mobile game application for running scenarios. Through
 
 When players launch the game, they will play as a little knight adventuring in a virtual world, and players can start running exercises at any time. The game primarily guides players through voice prompts during their run, while players can also check the app screen for information at any time. During gameplay, players will encounter various fantasy monsters or challenges, which they must overcome through real-world running time competitions or running distance. After defeating monsters, players receive various rewards to help with their next "adventure," such as obtaining potions to increase next rest time, or swords to increase damage dealt at the same distance in future runs.
 
+This API is deployed on Render: https://dashboard.render.com/web/srv-d34lg7er433s73cnonag (I know none of you can access it, so this passage is just a reminder for me🤪)
+This is available to everyone 👉 use https://knightrun-api.onrender.com/api/health to check it's health
+
 ----
 
 # API Version & Commit Guidelines
@@ -58,8 +61,6 @@ When players launch the game, they will play as a little knight adventuring in a
 ----
 
 # API Frequently Asked Questions (FAQ)
-
-# Knight Run API - Frequently Asked Questions (FAQ)
 
 ## 🚀 Deployment & Access
 
