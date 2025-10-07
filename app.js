@@ -191,7 +191,7 @@ app.post('/api/register', async (req, res) => {
         const newUser = userResult.rows[0];
         const userId = newUser.user_id;
 
-        // Step 3: Insert default items for the new user in user_items table
+        // Insert default items for the new user in user_items table
         const insertItemsQuery = `
             INSERT INTO public.user_items 
             (user_id, equipped_items, owned_items)
