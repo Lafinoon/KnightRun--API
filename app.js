@@ -53,6 +53,7 @@ app.post('/api/login', async (req, res) => {
             SELECT 
                 ui.user_id, 
                 ui.username, 
+                ui.created_at,
                 ui."level", 
                 ui.experience_points, 
                 ui.class_points, 
@@ -91,6 +92,7 @@ app.post('/api/login', async (req, res) => {
             user: {
                 user_id: user.user_id,
                 username: user.username,
+                created_at: user.created_at,
                 level: user.level,
                 experience_points: user.experience_points,
                 class_points: user.class_points,
