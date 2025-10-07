@@ -6,8 +6,8 @@ Knight Run! is an Android mobile game application for running scenarios. Through
 
 When players launch the game, they will play as a little knight adventuring in a virtual world, and players can start running exercises at any time. The game primarily guides players through voice prompts during their run, while players can also check the app screen for information at any time. During gameplay, players will encounter various fantasy monsters or challenges, which they must overcome through real-world running time competitions or running distance. After defeating monsters, players receive various rewards to help with their next "adventure," such as obtaining potions to increase next rest time, or swords to increase damage dealt at the same distance in future runs.
 
-This API is deployed on Render: https://dashboard.render.com/web/srv-d34lg7er433s73cnonag (I know none of you can access it, so this passage is just a reminder for me🤪)
-This is available to everyone 👉 use https://knightrun-api.onrender.com/api/health to check it's health
+This API is deployed on Render: https://dashboard.render.com/web/srv-d34lg7er433s73cnonag (I know none of you can access it, so this link is just a reminder for me🤪)
+This link is available to everyone 👉 use https://knightrun-api.onrender.com/api/health to check it's health
 
 ----
 
@@ -95,14 +95,23 @@ This is available to everyone 👉 use https://knightrun-api.onrender.com/api/he
 - **Level:** 1
 - **Experience Points:** 0
 - **Class Points:** 0
-- **Gold Coins:** 100
-- **Silver Coins:** 50
-- **Credits:** 10
+- **Gold Coins:** 0
+- **Silver Coins:** 0
+- **Credits:** 0 (yeah, we are mean😈)
 - **Consecutive Days:** 0
 - **Treasure Found:** 0
 - **Exploring Location:** Melbourne
 - **Equipped Items:** `{"trace": 3, "avatar": 1, "banner": 2}`
 - **Owned Items:** `[1, 2, 3]`
+
+### Q: I noticed gaps in my user IDs (like jumping from 1 to 27). Is this a bug?
+**A:** No, this is expected behavior (ok, a little out of expected😅). Auto-increment counters advance with every insertion attempt, regardless of success:
+
+- Failed insertions (duplicate entries, constraint violations)
+- Rolled-back transactions
+- Deleted records
+
+Each ID remains unique and independent, so gaps don't impact your application's functionality, performance, or data integrity. This is standard database behavior and not a cause for concern.
 
 ## 🔧 Technical Issues
 
