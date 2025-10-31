@@ -263,7 +263,7 @@ app.post('/api/update-coin', async (req, res) => {
             RETURNING gold_coins;
         `;
         
-        const result = await pool.query(updateGoldCoinQuery, [amount, userId]);
+        const result = await client.query(updateGoldCoinQuery, [amount, userId]);
 
         // Build success response
         const responseData = {
@@ -296,7 +296,7 @@ app.post('/api/update-experience', async (req, res) => {
             RETURNING experience_points;
         `;
         
-        const result = await pool.query(updateExperiencceQuery, [amount, userId]);
+        const result = await client.query(updateExperiencceQuery, [amount, userId]);
 
         // Build success response
         const responseData = {
