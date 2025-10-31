@@ -252,13 +252,6 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/update-coin', async (req, res) => {
     try {
         const { userId, amount } = req.body;
-        
-        if (!username || password === undefined) {
-            return res.status(400).json({
-                success: false,
-                message: 'Failed to varify the identity.'
-            });
-        }
 
         // Insert new coins into user_info table
         const updateGoldCoinQuery = `
