@@ -26,6 +26,8 @@ app.get('/', (req, res) => {
             'POST /api/register',
             'POST /api/login',
             'POST /api/logout', 
+            'POST /api/update-coin',
+            'POST /api/update-experience',
             'GET /api/health'
         ]
     });
@@ -268,6 +270,39 @@ app.post('/api/update-coin', async (req, res) => {
             success: true,
             message: 'Coin update successful',
             amount: result.rows[0].gold_coins
+        };
+
+        res.status(200).json(responseData);
+
+    } catch (error) {
+        console.error('Coin update error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error: ' + error.message
+        });
+    }
+});
+
+// Update experience endpoint
+app.post('/api/update-experience', async (req, res) => {
+    try {
+        const { userId, amount } = req.body;
+
+        // Insert new experience into user_info table
+        const updateExperiencceQuery = `
+            UPDATE public.user_info
+            SET experience_points = GREATEST(experience_points + $1, 0)
+            WHERE user_id = $2
+            RETURNING experience_points;
+        `;
+        
+        const result = await pool.query(updateExperiencceQuery, [amount, userId]);
+
+        // Build success response
+        const responseData = {
+            success: true,
+            message: 'Experience update successful',
+            amount: result.rows[0].experience_points
         };
 
         res.status(200).json(responseData);
