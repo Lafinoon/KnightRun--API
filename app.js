@@ -257,7 +257,7 @@ app.post('/api/update-coin', async (req, res) => {
         const updateGoldCoinQuery = `
             UPDATE public.user_info
             SET gold_coins = GREATEST(gold_coins + $1, 0)
-            WHERE userId = $2
+            WHERE user_id = $2
             RETURNING gold_coins;
         `;
         
@@ -267,11 +267,10 @@ app.post('/api/update-coin', async (req, res) => {
         const responseData = {
             success: true,
             message: 'Coin update successful',
-            amount: result.row[0].gold_coins
-            },
+            amount: result.rows[0].gold_coins
         };
 
-        res.status(201).json(responseData);
+        res.status(200).json(responseData);
 
     } catch (error) {
         console.error('Coin update error:', error);
