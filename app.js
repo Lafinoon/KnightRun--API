@@ -248,6 +248,47 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
+// Update coins endpoint
+app.post('/api/update-coin', async (req, res) => {
+    try {
+        const { userId, amount } = req.body;
+        
+        if (!username || password === undefined) {
+            return res.status(400).json({
+                success: false,
+                message: 'Failed to varify the identity.'
+            });
+        }
+
+        // Insert new coins into user_info table
+        const updateGoldCoinQuery = `
+            UPDATE public.user_info
+            SET gold_coins = GREATEST(gold_coins + $1, 0)
+            WHERE userId = $2
+            RETURNING gold_coins;
+        `;
+        
+        const result = await pool.query(updateGoldCoinQuery, [amount, userId]);
+
+        // Build success response
+        const responseData = {
+            success: true,
+            message: 'Coin update successful',
+            amount: result.row[0].gold_coins
+            },
+        };
+
+        res.status(201).json(responseData);
+
+    } catch (error) {
+        console.error('Coin update error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error: ' + error.message
+        });
+    }
+});
+
 // Start server!!
 app.listen(PORT, () => {
     console.log(`Knight Run API server running on port ${PORT}`);
