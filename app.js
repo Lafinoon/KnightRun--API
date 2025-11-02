@@ -283,6 +283,39 @@ app.post('/api/update-coin', async (req, res) => {
     }
 });
 
+// Update fire endpoint
+app.post('/api/update-fires', async (req, res) => {
+    try {
+        const { userId, amount } = req.body;
+
+        // Insert new coins into user_info table
+        const updateFiresQuery = `
+            UPDATE public.user_info
+            SET consecutive_days = GREATEST(consecutive_days + $1, 0)
+            WHERE user_id = $2
+            RETURNING consecutive_days;
+        `;
+        
+        const result = await client.query(updateFiresQuery, [amount, userId]);
+
+        // Build success response
+        const responseData = {
+            success: true,
+            message: 'Fire update successful',
+            amount: result.rows[0].consecutive_days
+        };
+
+        res.status(200).json(responseData);
+
+    } catch (error) {
+        console.error('Fire update error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error: ' + error.message
+        });
+    }
+});
+
 // Update experience endpoint
 app.post('/api/update-experience', async (req, res) => {
     try {
