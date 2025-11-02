@@ -27,6 +27,8 @@ app.get('/', (req, res) => {
             'POST /api/login',
             'POST /api/logout', 
             'POST /api/update-coin',
+            'POST /api/update-fires',
+            'POST /api/update-treasures'
             'POST /api/update-experience',
             'GET /api/health'
         ]
@@ -315,6 +317,40 @@ app.post('/api/update-fires', async (req, res) => {
         });
     }
 });
+
+// Update treasures endpoint
+app.post('/api/update-treasures', async (req, res) => {
+    try {
+        const { userId, amount } = req.body;
+
+        // Insert new coins into user_info table
+        const updateTreasuresQuery = `
+            UPDATE public.user_info
+            SET treasure_found = GREATEST(treasure_found + $1, 0)
+            WHERE user_id = $2
+            RETURNING treasure_found;
+        `;
+        
+        const result = await client.query(updateTreasuresQuery, [amount, userId]);
+
+        // Build success response
+        const responseData = {
+            success: true,
+            message: 'Treasure update successful',
+            amount: result.rows[0].treasure_found
+        };
+
+        res.status(200).json(responseData);
+
+    } catch (error) {
+        console.error('treasure update error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error: ' + error.message
+        });
+    }
+});
+
 
 // Update experience endpoint
 app.post('/api/update-experience', async (req, res) => {
