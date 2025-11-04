@@ -257,10 +257,10 @@ app.post('/api/update-coin', async (req, res) => {
     try {
         const { userId, amount } = req.body;
 
-        // Insert new coins into user_info table
+        // Set gold coins to the specified amount (not adding)
         const updateGoldCoinQuery = `
             UPDATE public.user_info
-            SET gold_coins = GREATEST(gold_coins + $1, 0)
+            SET gold_coins = GREATEST($1, 0)
             WHERE user_id = $2
             RETURNING gold_coins;
         `;
@@ -323,10 +323,10 @@ app.post('/api/update-treasures', async (req, res) => {
     try {
         const { userId, amount } = req.body;
 
-        // Insert new coins into user_info table
+        // Set treasure_found to the specified amount (not adding)
         const updateTreasuresQuery = `
             UPDATE public.user_info
-            SET treasure_found = GREATEST(treasure_found + $1, 0)
+            SET treasure_found = GREATEST($1, 0)
             WHERE user_id = $2
             RETURNING treasure_found;
         `;
@@ -357,15 +357,15 @@ app.post('/api/update-experience', async (req, res) => {
     try {
         const { userId, amount } = req.body;
 
-        // Insert new experience into user_info table
-        const updateExperiencceQuery = `
+        // Set experience_points to the specified amount (not adding)
+        const updateExperienceQuery = `
             UPDATE public.user_info
-            SET experience_points = GREATEST(experience_points + $1, 0)
+            SET experience_points = GREATEST($1, 0)
             WHERE user_id = $2
             RETURNING experience_points;
         `;
         
-        const result = await client.query(updateExperiencceQuery, [amount, userId]);
+        const result = await client.query(updateExperienceQuery, [amount, userId]);
 
         // Build success response
         const responseData = {
@@ -377,7 +377,7 @@ app.post('/api/update-experience', async (req, res) => {
         res.status(200).json(responseData);
 
     } catch (error) {
-        console.error('Coin update error:', error);
+        console.error('Experience update error:', error);
         res.status(500).json({
             success: false,
             message: 'Internal server error: ' + error.message
