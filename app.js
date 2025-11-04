@@ -28,9 +28,9 @@ app.get('/', (req, res) => {
             'POST /api/logout', 
             'POST /api/update-coin',
             'POST /api/update-fires',
-            'POST /api/update-treasures'
+            'POST /api/update-treasures',
             'POST /api/update-experience',
-            'GET /api/health',
+            'GET /api/health'
         ]
     });
 });
