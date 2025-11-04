@@ -290,10 +290,10 @@ app.post('/api/update-fires', async (req, res) => {
     try {
         const { userId, amount } = req.body;
 
-        // Insert new coins into user_info table
+        // Set consecutive_days to the specified amount (not adding)
         const updateFiresQuery = `
             UPDATE public.user_info
-            SET consecutive_days = GREATEST(consecutive_days + $1, 0)
+            SET consecutive_days = GREATEST($1, 0)
             WHERE user_id = $2
             RETURNING consecutive_days;
         `;
