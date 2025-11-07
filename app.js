@@ -21,7 +21,7 @@ const client = new Client({
 app.get('/', (req, res) => {
     res.json({
         message: 'Knight Run API Server',
-        version: '0.1',
+        version: '1.0',
         endpoints: [
             'POST /api/register',
             'POST /api/login',
